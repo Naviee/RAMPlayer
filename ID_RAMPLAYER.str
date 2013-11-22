@@ -1,0 +1,28 @@
+DIALOGSTRINGS ID_RAMPLAYER
+{
+  IDS_BUTTON      "<<";
+  IDS_BUTTON1     "< |";
+  IDS_BUTTON2     "STOP";
+  IDS_BUTTON3     ">";
+  IDS_BUTTON4     "<";
+  IDS_BUTTON5     "| >";
+  IDS_BUTTON6     ">>";
+  IDS_BUTTON7     "Load Sequence";
+  IDS_IDD_DIALOG  "RAM Player";
+  IDS_STATIC      "Topmost";
+  IDS_STATIC1     "Timeline";
+  IDS_STATIC10    "Group";
+  IDS_STATIC11    "Group";
+  IDS_STATIC12    "FPS";
+  IDS_STATIC13    "SIZE: ";
+  IDS_STATIC14    "1024 x 1024";
+  IDS_STATIC15    "Group";
+  IDS_STATIC2     "Frame";
+  IDS_STATIC3     "Static text";
+  IDS_STATIC4     "Display";
+  IDS_STATIC5     "Settings";
+  IDS_STATIC6     "Static text";
+  IDS_STATIC7     "C:\Programme\MAXON\";
+  IDS_STATIC8     "Group";
+  IDS_STATIC9     "Group";
+}
