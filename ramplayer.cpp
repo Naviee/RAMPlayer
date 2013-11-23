@@ -4,7 +4,7 @@ void RamPlayerDlg::ShowFrame(LONG frame)
 {
 	if(frame<maxframes && frame>=0)
 	{
-		p_area.SetMap(all_frames->at(frame));
+		p_area.SetMap(all_frames.at(frame));
 		p_area.Redraw();
 		SetLong(RP_FRAME,frame,0,maxframes-1);
 	}
@@ -102,7 +102,7 @@ Bool RamPlayerDlg::InitMovie(Bool add)
 
 		BaseBitmap* temp = BaseBitmap::Alloc();
 		temp->Init(bf->GetFilename());
-		all_frames->push_back(temp);
+		all_frames.push_back(temp);
 		++maxframes;
 		if(first)
 		{
@@ -266,7 +266,7 @@ Bool RamPlayerDlg::Command(LONG id,const BaseContainer &msg)
 					{
 						if(ms->Choose(FILTER_AVI_USER,&bc))
 						{
-							ms->Open(fn,all_frames->at(0),fps,1122,&bc,NULL);
+							ms->Open(fn,all_frames.at(0),fps,1122,&bc,NULL);
 							
 							for(VideoFrames::iterator i=all_frames.begin(); i != all_frames.end();++i)
 							  ms->Write(*i);
@@ -276,7 +276,7 @@ Bool RamPlayerDlg::Command(LONG id,const BaseContainer &msg)
 					{
 						if(ms->Choose(FILTER_MOVIE_USER,&bc))
 						{
-							ms->Open(fn,all_frames->at(0),fps,1125,&bc,NULL);
+							ms->Open(fn,all_frames.at(0),fps,1125,&bc,NULL);
 							for(VideoFrames::iterator i=all_frames.begin(); i != all_frames.end();++i)
 							  ms->Write(*i);
 						}
