@@ -8,7 +8,6 @@ enum
 {
 	PLAYMODE_PLAY = 0,
 	PLAYMODE_REV,
-
 	PLAYMODE_DUMMY
 };
 
@@ -21,10 +20,6 @@ enum
 
 	MENU_DUMMY
 };
-
-#ifdef C4D_R12
-/* Add compatibility settings for higher C4D versions here */
-#endif
 
 class PlayerArea : public GeUserArea
 {
@@ -46,7 +41,7 @@ class PlayerArea : public GeUserArea
 		}
 		virtual Bool Init();
 		virtual Bool GetMinSize(LONG& w, LONG& h);
-		virtual void DrawMsg      (LONG x1,LONG y1,LONG x2,LONG y2,const BaseContainer &msg);
+		virtual void DrawMsg   (LONG x1,LONG y1,LONG x2,LONG y2,const BaseContainer &msg);
 		virtual void Sized(LONG w,LONG h);
 };
 
@@ -68,7 +63,7 @@ class RamPlayerDlg : public GeDialog
 		
 		void free()
 		{
-		  if(!all_frames.empty())
+		  	if(!all_frames.empty())
 			{
 				for(VideoFrames::iterator i=all_frames.begin(); i != all_frames.end();++i)
 					BaseBitmap::Free(*i);
@@ -76,15 +71,9 @@ class RamPlayerDlg : public GeDialog
 			}
 		}
 	public:
-		RamPlayerDlg()
-		{
-			playmode = 0;
-			maxframes = 0;
-		}
-		~RamPlayerDlg()
-		{
-			free();
-		}
+		RamPlayerDlg() : playmode(0), maxframes(0){}
+		~RamPlayerDlg() { free(); }
+		
 		virtual Bool CreateLayout(void);
 		virtual Bool InitValues(void);
 		virtual Bool Command(LONG id,const BaseContainer &msg);
