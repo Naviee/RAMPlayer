@@ -7,15 +7,16 @@ This code is a bit old (written back when C4D 11.5 was the latest version)
 but it may be helpful for beginners and uses these SDK features:
 - BrowseFiles
 - MovieSaver
-- STL vector array
 - User Area
 - CommandData
-- Hard-Coded non-modal dialog
+- Non-modal dialog with resources
 
-This was not checked to compile in any higher version of C4D 
-but it should really only be small modifications if at all to make it compatible.
+As well as these features: 
+- STL vector array
+
+The code here should work fine with R13 and higher.
 
 Feel free to commit and improve.
 
 Navié releases this code into the public domain in hope that it is useful.
-Feel free to credit us if you use the code, but it's not a necessity.
+Let us know if you used it (it's not necessary, just nice to see..).
