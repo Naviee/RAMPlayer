@@ -1,3 +1,7 @@
+//This plugin loads a sequence of numbered images to the it's UserArea
+//Then you can play back the images in the UA with the help of the Timer() method
+//Or save the sequence to a .avi or .qt video file
+
 #include "ramplayer.h"
 
 void RamPlayerDlg::ShowFrame(LONG frame)
@@ -45,7 +49,11 @@ Bool DetectSequenceProps(const Filename ofn, LONG &start, String &dst_s, LONG &n
 	if(ncnt>0)
 	{
 		String res = name.SubStr(ocnt-ncnt,ncnt);
-		start = res.StringToLong();
+		//start = res.StringToLong();    //R11.5 version to get the number value from a string
+        GeData d;
+
+        d = StringToNumber(res, FORMAT_LONG, NULL, NULL);
+        start = d.GetLong();
 		dst_s = name.SubStr(0,ocnt-ncnt);
 	}
 	return TRUE;
@@ -62,7 +70,11 @@ Bool GetNextFrame(const Filename ofn, const String& o_str, const LONG digcnt, co
 	if(digcnt>0)
 	{
 		String res = name.SubStr(ocnt-digcnt,digcnt);
-		LONG start = res.StringToLong();
+		//LONG start = res.StringToLong();  //R11.5 version to get the number value from a string
+        GeData d;
+
+        d = StringToNumber(res, FORMAT_LONG, NULL, NULL);
+        LONG start = d.GetLong();
 
 		if(start==(last_f_nr+1) && !name.SubStr(0,ocnt-digcnt).Compare(o_str))
 			return TRUE;
@@ -233,7 +245,7 @@ Bool RamPlayerDlg::Command(LONG id,const BaseContainer &msg)
 		//MENU CHECK
 		case MENU_LOAD:
 			{
-				if(FN_seq.FileSelect(FSTYPE_IMAGES, 0, &String("Choose Footage sequence...")))
+				if(FN_seq.FileSelect(FILESELECTTYPE_IMAGES, FILESELECT_LOAD, "Choose Footage sequence..."))
 				{
 					InitMovie();					
 				}
@@ -241,7 +253,7 @@ Bool RamPlayerDlg::Command(LONG id,const BaseContainer &msg)
 			break;
 		case MENU_ADD:
 			{
-				if(FN_seq.FileSelect(FSTYPE_IMAGES, 0, &String("Choose Footage sequence...")))
+				if(FN_seq.FileSelect(FILESELECTTYPE_IMAGES, FILESELECT_LOAD, "Choose Footage sequence..."))
 				{
 					InitMovie(TRUE);
 				}
@@ -254,7 +266,7 @@ Bool RamPlayerDlg::Command(LONG id,const BaseContainer &msg)
 				GetLong(RP_FPS,fps);
 
 				Filename fn;
-				if(fn.FileSelect(FSTYPE_IMAGES, GE_SAVE, &String("Please specify a name for the movie.")))
+				if(fn.FileSelect(FILESELECTTYPE_IMAGES, FILESELECT_SAVE, "Please specify a name for the movie."))
 				{
 					AutoAlloc<MovieSaver> ms;
 
@@ -264,9 +276,9 @@ Bool RamPlayerDlg::Command(LONG id,const BaseContainer &msg)
 					BaseContainer bc;
 					if(id==MENU_SAVI)
 					{
-						if(ms->Choose(FILTER_AVI_USER,&bc))
+						if(ms->Choose(FILTER_AVI,&bc))
 						{
-							ms->Open(fn,all_frames.at(0),fps,1122,&bc,NULL);
+							ms->Open(fn,all_frames.at(0),fps,1122,&bc,SAVEBIT_0);
 							
 							for(VideoFrames::iterator i=all_frames.begin(); i != all_frames.end();++i)
 							  ms->Write(*i);
@@ -274,9 +286,9 @@ Bool RamPlayerDlg::Command(LONG id,const BaseContainer &msg)
 					}
 					else
 					{
-						if(ms->Choose(FILTER_MOVIE_USER,&bc))
+						if(ms->Choose(FILTER_MOVIE,&bc))
 						{
-							ms->Open(fn,all_frames.at(0),fps,1125,&bc,NULL);
+							ms->Open(fn,all_frames.at(0),fps,1125,&bc,SAVEBIT_0);
 							for(VideoFrames::iterator i=all_frames.begin(); i != all_frames.end();++i)
 							  ms->Write(*i);
 						}
@@ -298,7 +310,7 @@ class RamPlayer : public CommandData
 
 		virtual Bool Execute(BaseDocument *doc)
 		{
-			return dlg.Open(TRUE,PID_RAMPLAYER,-1,-1,500,300);
+			return dlg.Open(DLG_TYPE_ASYNC,PID_RAMPLAYER,-1,-1,500,300);
 		}
 
 		virtual LONG GetState(BaseDocument *doc)
@@ -314,6 +326,5 @@ class RamPlayer : public CommandData
 
 Bool RegisterRamPlayer(void)
 {
-	String name = "RAM Player";
-	return RegisterCommandPlugin(PID_RAMPLAYER,name,0,NULL,"Ram Player",gNew RamPlayer);
+	return RegisterCommandPlugin(PID_RAMPLAYER, GeLoadString(ID_RAMPLAYER), 0, NULL, String("Help text Goes here"), gNew RamPlayer);
 }
