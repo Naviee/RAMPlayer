@@ -1,4 +1,4 @@
-#include "ramplayer.h"
+#include "../headers/ramplayer.h"
 
 PlayerArea::PlayerArea()
 {
