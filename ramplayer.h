@@ -22,6 +22,10 @@ enum
 	MENU_DUMMY
 };
 
+#ifdef C4D_R12
+/* Add compatibility settings for higher C4D versions here */
+#endif
+
 class PlayerArea : public GeUserArea
 {
 	private:
