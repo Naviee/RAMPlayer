@@ -2,7 +2,7 @@
 //Then you can play back the images in the UA with the help of the Timer() method
 //Or save the sequence to a .avi or .qt video file
 
-#include "ramplayer.h"
+#include "../headers/ramplayer.h"
 
 void RamPlayerDlg::ShowFrame(LONG frame)
 {
