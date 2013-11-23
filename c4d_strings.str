@@ -1,0 +1,14 @@
+//English string resources
+//This is the text that shows up in the menu
+
+STRINGTABLE
+{
+  ID_RAMPLAYER    "Ram Player";   // Must match the ID in the c4d_symbols.h file (or a custom "#include foo.h" file if that method was used instead)
+  IDS_IDD_DIALOG  "dialog";
+
+  RP_MENU_FILE        "File";
+  RP_MENU_LOAD        "Load";
+  RP_MENU_SAVE_QT     "Save QT";
+  RP_MENU_MERGE       "File Merge";
+  RP_MENU_SAVE_AVI    "Save AVI";
+}
